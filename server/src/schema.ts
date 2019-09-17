@@ -6,23 +6,23 @@ import {
 } from 'graphql';
 
 const CalculatePriceObjectType: any = new GraphQLObjectType({
-  name: 'CalculatePrice',
+  name: 'CalculatePriceObjectType',
   fields: {
-    type: { type: GraphQLString },
+    exchangeType: { type: GraphQLString },
     margin: { type: GraphQLInt },
     exchangeRate: { type: GraphQLInt },
   },
 });
-const RootQuery: any = new GraphQLObjectType({
-  name: 'RootQuery',
-  fields: {},
-});
-const Mutation: any = new GraphQLObjectType({
-  name: 'Mutation',
-  fields: {},
+const calculatePrice: any = new GraphQLObjectType({
+  name: 'calculatePrice',
+  fields: {
+    compute: { type: CalculatePriceObjectType },
+    exchangeType: { type: GraphQLString },
+    margin: { type: GraphQLInt },
+    exchangeRate: { type: GraphQLInt },
+  },
 });
 
 export default new GraphQLSchema({
-  query: RootQuery,
-  mutation: Mutation,
+  query: calculatePrice,
 });
