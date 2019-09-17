@@ -1,15 +1,28 @@
-import { GraphQLSchema, GraphQLObjectType } from 'graphql';
+import {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+} from 'graphql';
 
-const rootQuery: any = new GraphQLObjectType({
-  name: 'rootQuery',
+const CalculatePriceObjectType: any = new GraphQLObjectType({
+  name: 'CalculatePrice',
+  fields: {
+    type: { type: GraphQLString },
+    margin: { type: GraphQLInt },
+    exchangeRate: { type: GraphQLInt },
+  },
+});
+const RootQuery: any = new GraphQLObjectType({
+  name: 'RootQuery',
   fields: {},
 });
-const rootMutation: any = new GraphQLObjectType({
-  name: 'rootMutation',
+const Mutation: any = new GraphQLObjectType({
+  name: 'Mutation',
   fields: {},
 });
 
 export default new GraphQLSchema({
-  query: rootQuery,
-  mutation: rootMutation,
+  query: RootQuery,
+  mutation: Mutation,
 });
