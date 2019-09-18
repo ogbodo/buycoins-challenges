@@ -1,7 +1,11 @@
 import joi from '@hapi/joi';
 
 const validatorSchema = {
-  type: joi.string().required(),
+  exchangeType: joi
+    .string()
+    .regex(/^(BUY|SELL)$/i)
+    .required(),
+
   margin: joi.number().required(),
   exchangeRate: joi.number().required(),
 };
