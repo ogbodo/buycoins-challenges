@@ -5,7 +5,7 @@ import schema from './schema';
 const app = express();
 app.disable('x-powered-by');
 app.use(express.json());
-// app.use(validateUserSession.bind(this, firebase));
+
 app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
 
 export default app;
