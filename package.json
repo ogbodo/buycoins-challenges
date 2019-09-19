@@ -4,7 +4,6 @@
   "main": "bin/www",
   "private": true,
   "scripts": {
-    "build": "./build.sh",
     "start": "bin/www",
     "test": "jest"
   },
