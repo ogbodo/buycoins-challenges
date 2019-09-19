@@ -6,21 +6,7 @@ import {
   GraphQLFloat,
 } from 'graphql';
 import { doValidation } from './utils';
-import fetch from 'node-fetch';
-
-//MAKE CALL TO COIN DESK API END POINT
-async function retrieveBTCPrice() {
-  const url = 'https://api.coindesk.com/v1/bpi/currentprice.json';
-  try {
-    const response: any = await fetch(url).then(data => data.json());
-
-    const USDPriceObject = response['bpi']['USD'];
-
-    return Number(USDPriceObject['rate_float']);
-  } catch (error) {
-    return error;
-  }
-}
+import fetchPrice from './helper/fetch-price';
 
 const CalculatePriceObjectType: any = new GraphQLObjectType({
   name: 'CalculatePriceObjectType',
@@ -40,8 +26,8 @@ const CalculatePriceObjectType: any = new GraphQLObjectType({
 const RootQuery: any = new GraphQLObjectType({
   name: 'RootQuery',
   fields: {
-    //THIS FIELD DOES THE ACTUAL CALCULATION BASED ON ARGS
     calculatePrice: {
+      description: `THIS FIELD DOES THE ACTUAL CALCULATION BASED ON ARGS`,
       type: CalculatePriceObjectType,
       args: {
         exchangeType: { type: GraphQLString },
@@ -54,14 +40,15 @@ const RootQuery: any = new GraphQLObjectType({
           return error;
         }
 
-        const currentPrice = await retrieveBTCPrice();
+        const currentPrice = await fetchPrice();
 
         const computedMargin =
           value.exchangeType === 'BUY'
-            ? currentPrice + value.margin * 100
-            : currentPrice - value.margin * 100;
+            ? currentPrice + currentPrice * (value.margin / 100)
+            : currentPrice - currentPrice * (value.margin / 100);
 
-        return `NGN ${computedMargin * value.exchangeRate}`;
+        let d = `NGN ${computedMargin * value.exchangeRate}`;
+        return d;
       },
     },
   },
