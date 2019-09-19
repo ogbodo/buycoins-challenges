@@ -9,5 +9,8 @@ app.use(express.json());
 
 // app.use(validateUserSession.bind(this, firebase));
 app.use('/graphql', graphqlHTTP({ schema, graphiql: true }));
+app.listen(process.env.PORT || 4000, () => {
+  console.log('server is running');
+});
 
 export default app;
