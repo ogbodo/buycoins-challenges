@@ -16,7 +16,7 @@
     "express-graphql": "^0.9.0",
     "graphql": "^14.4.2",
     "node-fetch": "^2.6.0",
-    "pug": "^2.0.4",
+    "pug": "^3.0.1",
     "supertest": "^4.0.2"
   },
   "devDependencies": {
